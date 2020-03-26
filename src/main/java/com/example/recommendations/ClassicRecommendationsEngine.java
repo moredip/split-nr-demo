@@ -11,8 +11,6 @@ import static com.example.recommendations.domain.Product.generateFakeProduct;
 public class ClassicRecommendationsEngine implements ProductRecommender {
     @Override
     public Stream<Product> productsRelatedTo(Product product){
-        return Stream.of(
-                generateFakeProduct()
-        );
+        return Stream.generate(Product::generateFakeProduct).limit(10);
     }
 }
