@@ -3,6 +3,7 @@ package com.example.recommendations.featureflags;
 import io.split.client.SplitClientConfig;
 import io.split.client.SplitFactory;
 import io.split.client.SplitFactoryBuilder;
+import io.split.integrations.IntegrationsConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +28,10 @@ public class SplitConfig {
         SplitClientConfig config = SplitClientConfig.builder()
                 .splitFile("./split.yaml")
                 .setBlockUntilReadyTimeout(10000)
-                .enableDebug()
+                .integrations(
+                        IntegrationsConfig.builder()
+                                .newRelicImpressionListener()
+                                .build())
                 .build();
         return SplitFactoryBuilder.build(splitApiKey, config);
     }
